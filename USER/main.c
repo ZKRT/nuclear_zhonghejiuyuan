@@ -125,7 +125,7 @@ int main(void)
 	
 	delay_ms(1000);
 	
-	ReadyFlag = 1;
+	ReadyFlag = 0; //modify by yanly190220, this init value must be 0
 	
 	while(1)
 	{
