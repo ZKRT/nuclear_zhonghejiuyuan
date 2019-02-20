@@ -37,6 +37,7 @@ extern u16 USART_RX_STA;         		//接收状态标记
 void uart_init(u32 bound);
 void API_Uart6_init(u32 bound);
 void APIUsart6_Send_Data(u8 *buf,u8 len);
+void usart_config(void);
 #endif
 
 

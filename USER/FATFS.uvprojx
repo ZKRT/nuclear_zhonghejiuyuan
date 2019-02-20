@@ -10,12 +10,12 @@
       <TargetName>FATFS</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>5050106::V5.05 update 1 (build 106)::ARMCC</pCCUsed>
+      <pCCUsed>5060422::V5.06 update 4 (build 422)::ARMCC</pCCUsed>
       <TargetOption>
         <TargetCommonOption>
           <Device>STM32F407ZE</Device>
           <Vendor>STMicroelectronics</Vendor>
-          <PackID>Keil.STM32F4xx_DFP.2.11.0</PackID>
+          <PackID>Keil.STM32F4xx_DFP.2.13.0</PackID>
           <PackURL>http://www.keil.com/pack</PackURL>
           <Cpu>IROM(0x08000000,0x80000) IRAM(0x20000000,0x20000) IRAM2(0x10000000,0x10000) CPUTYPE("Cortex-M4") FPU2 CLOCK(168000000) ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
@@ -133,7 +133,7 @@
             <RunIndependent>0</RunIndependent>
             <UpdateFlashBeforeDebugging>1</UpdateFlashBeforeDebugging>
             <Capability>1</Capability>
-            <DriverSelection>4103</DriverSelection>
+            <DriverSelection>4100</DriverSelection>
           </Flash1>
           <bUseTDR>0</bUseTDR>
           <Flash2>STLink\ST-LINKIII-KEIL_SWO.dll</Flash2>
@@ -330,11 +330,12 @@
             <vShortWch>1</vShortWch>
             <v6Lto>0</v6Lto>
             <v6WtE>0</v6WtE>
+            <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls></MiscControls>
               <Define>STM32F40 STM32F40_41xxx,USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\CORE;..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\USER;..\HARDWARE\LED;..\HARDWARE\LCD;..\HARDWARE\KEY;..\HARDWARE\SRAM;..\HARDWARE\SDIO;..\MALLOC;..\USMART;..\HARDWARE\SPI;..\HARDWARE\W25QXX;..\FATFS\exfuns;..\FATFS\src;..\FWLIB\inc;..\HARDWARE\RS485;..\HARDWARE\Meteor;..\HARDWARE\GPS;..\HARDWARE\USART3;..\HARDWARE\TIMER;..\HARDWARE\FIFO;..\HARDWARE\RS232</IncludePath>
+              <IncludePath>..\CORE;..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\USER;..\HARDWARE\LED;..\HARDWARE\LCD;..\HARDWARE\KEY;..\HARDWARE\SRAM;..\HARDWARE\SDIO;..\MALLOC;..\USMART;..\HARDWARE\SPI;..\HARDWARE\W25QXX;..\FATFS\exfuns;..\FATFS\src;..\FWLIB\inc;..\HARDWARE\RS485;..\HARDWARE\Meteor;..\HARDWARE\GPS;..\HARDWARE\USART3;..\HARDWARE\TIMER;..\HARDWARE\FIFO;..\HARDWARE\RS232;..\HARDWARE\os_module</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -402,6 +403,11 @@
               <FileName>fifo.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\HARDWARE\FIFO\fifo.c</FilePath>
+            </File>
+            <File>
+              <FileName>datalink_osdk_handle.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\datalink_osdk_handle.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -556,26 +562,6 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>USMART</GroupName>
-          <Files>
-            <File>
-              <FileName>usmart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\USMART\usmart.c</FilePath>
-            </File>
-            <File>
-              <FileName>usmart_config.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\USMART\usmart_config.c</FilePath>
-            </File>
-            <File>
-              <FileName>usmart_str.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\USMART\usmart_str.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
           <GroupName>FATFS</GroupName>
           <Files>
             <File>
@@ -615,8 +601,49 @@
             </File>
           </Files>
         </Group>
+        <Group>
+          <GroupName>os_module</GroupName>
+          <Files>
+            <File>
+              <FileName>osqtmr.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\HARDWARE\os_module\osqtmr.c</FilePath>
+            </File>
+            <File>
+              <FileName>ostmr.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\HARDWARE\os_module\ostmr.c</FilePath>
+            </File>
+            <File>
+              <FileName>ostmr0.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\HARDWARE\os_module\ostmr0.c</FilePath>
+            </File>
+            <File>
+              <FileName>ostmr1.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\HARDWARE\os_module\ostmr1.c</FilePath>
+            </File>
+            <File>
+              <FileName>osusart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\HARDWARE\os_module\osusart.c</FilePath>
+            </File>
+            <File>
+              <FileName>osusartX.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\HARDWARE\os_module\osusartX.c</FilePath>
+            </File>
+          </Files>
+        </Group>
       </Groups>
     </Target>
   </Targets>
+
+  <RTE>
+    <apis/>
+    <components/>
+    <files/>
+  </RTE>
 
 </Project>

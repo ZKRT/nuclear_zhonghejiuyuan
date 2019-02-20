@@ -77,11 +77,11 @@ char* itoa(int num,char*str,int radix)
 bool CheckCommunication(void)
 {
 	uint8_t MeteorCheckData[5];
-	uint16_t Len=5;
+//	uint16_t Len=5;
 	uint8_t SendCmd[] = "Q\n";
 	u8 i=0;
 	char CheckReceiveFlag[]="OK Q\n";
-	char ReceiveData[5];
+//	char ReceiveData[5];
 	
 	LED0 = 0;
 	RS485_Send_Data(SendCmd,2);
@@ -93,7 +93,7 @@ bool CheckCommunication(void)
 			MeteorCheckData[i] = RS485_RX_BUF[Rs485BufferFinishNumber][i];
 		RS485_RX_CNT = 0;
 	}
-	if(strncmp(CheckReceiveFlag,MeteorCheckData,5))
+	if(strncmp(CheckReceiveFlag,(const char*)MeteorCheckData,5))  //by yanly change
 		return false;
 	return true;
 }
@@ -105,16 +105,16 @@ bool CheckCommunication(void)
   */
 bool SetVoltage(u16 VoltageValue)
 {
-		uint8_t Cmd[6];
-		
-		Cmd[0] = 'V';
-		Cmd[1] = 0x30+(VoltageValue/100)%10;
-		Cmd[2] = 0x30+(VoltageValue/10)%10;
-		Cmd[3] = 0x30+VoltageValue%10;
-		Cmd[4] = '\n';
-	
-		RS485_Send_Data(Cmd, 5);
+	uint8_t Cmd[6];
 
+	Cmd[0] = 'V';
+	Cmd[1] = 0x30+(VoltageValue/100)%10;
+	Cmd[2] = 0x30+(VoltageValue/10)%10;
+	Cmd[3] = 0x30+VoltageValue%10;
+	Cmd[4] = '\n';
+
+	RS485_Send_Data(Cmd, 5);
+	return true;
 }
 
 /**
@@ -124,9 +124,9 @@ bool SetVoltage(u16 VoltageValue)
   */
 bool StartMea(void)
 {
-		uint8_t Cmd[]="K\n";
-	  
-		RS485_Send_Data(Cmd, 2);
+	uint8_t Cmd[]="K\n";
+	RS485_Send_Data(Cmd, 2);
+	return true;
 
 }
 
@@ -138,11 +138,11 @@ bool StartMea(void)
 bool StopMea(void)
 {
 	uint8_t MeteorStopkData[5];
-	uint16_t Len=0;
+//	uint16_t Len=0;
 	uint8_t SendCmd[] = "S\n";
 	
 	char CheckReceiveFlag[]="OK S\n";
-	char ReceiveData[5];
+//	char ReceiveData[5];
 	
 	RS485_Send_Data(SendCmd,2);
 	delay_ms(10);
@@ -151,7 +151,7 @@ bool StopMea(void)
 		fifo_out(&NuclearFIFOBuffer,MeteorStopkData,RS485_RX_CNT);
 		RS485_RX_CNT = 0;
 	}
-	if(strncmp(CheckReceiveFlag,MeteorStopkData,5))
+	if(strncmp(CheckReceiveFlag,(const char*)MeteorStopkData,5))  //by yanly change
 		return false;
 	return true;
 }
@@ -163,7 +163,7 @@ bool StopMea(void)
   */
 bool ReadMeteorVal (void)
 {
-	uint8_t Len=0;
+//	uint8_t Len=0;
 	uint8_t SendCmd[] = "E\n";
 		
 	RS485_Send_Data(SendCmd,2);
