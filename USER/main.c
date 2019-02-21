@@ -23,7 +23,12 @@
 #include "osusart.h"
 #include "datalink_osdk_handle.h"
 
+//#define DEBUG_TESTDATA_OPEN //Debug open //zkrt_debug
+#ifdef DEBUG_TESTDATA_OPEN
+#define SOFTWARE_VERSION  "DEBUG-V02"
+#else
 #define SOFTWARE_VERSION  "RELEASE-V02"
+#endif
 
 FIL fileTXT;
 FIL *fp;
@@ -85,8 +90,11 @@ int main(void)
 	mem_perused = my_mem_perused(SRAMIN);
 
 	delay_ms(1000);
-
-	ReadyFlag = 0; //zkrt_debug 需设置为0
+#ifdef DEBUG_TESTDATA_OPEN
+	ReadyFlag = 1; 
+#else
+	ReadyFlag = 0; //release需设置为0
+#endif
 
 	while (1)
 	{
@@ -116,6 +124,34 @@ int main(void)
 			{
 				TimeFlag = 0;
 				LED0 = 1;
+#ifdef DEBUG_TESTDATA_OPEN
+				{
+					char meteor[] =    "$GPGGA,062052.40,2309.5015,N,11329.6260,E,2,9,1.0,29.7,M,-4.4,M,,*72\r\n\
+$GPVTG,320.2,T,322.8,M,0.0,N,0.0,K,D*2E\r\n\
+$WIMDA,29.8991,I,1.0125,B,27.9,C,,,48.8,,16.1,C,29.4,T,32.0,M,1.6,N,0.8,M*63\r\n\
+$TIROT,-20.9,A*2D\r\n\
+$YXXDR,C,,C,WCHR,C,,C,WCHT,C,28.2,C,HINX,P,1.0090,B,STNP*55\r\n\
+$WIMWV,56.2,R,1.6,N,A*15\r\n\
+$GPZDA,062053.00,02,04,2018,00,00*69\r\n\
+$YXXDR,A,0.0,D,PTCH,A,1.3,D,ROLL*5F\r\n";
+					uint8_t nuclear[] = {31,32,33,34,35,36,37,38,39,40,31,32,33,34,35,36,37,38,39,40,
+					31,32,33,34,35,36,37,38,39,40,31,32,33,34,35,36,37,38,39,40,
+					31,32,33,34,35,36,37,38,39,40,31,32,33,34,35,36,37,38,39,40,
+					31,32,33,34,35,36,37,38,39,40,31,32,33,34,35,36,37,38,39,40,
+					31,32,33,34,35,36,37,38,39,40,31,32,33,34,35,36,37,38,39,40};
+					printf("%s", meteor);
+					delay_ms(15);
+					delay_ms(100);
+					printf("$HFSSJ,");
+					for (i = 0; i < sizeof(nuclear); i++)
+					{
+						printf("%c", nuclear[i]);
+					}
+					printf("\r\n");
+					printf("$WRJSJ,Battery:%f,ReturnFlag:%d\r\n", (double)BatteryAllowance/1000, ReturnFlag);
+					printf("\r\n");
+				}
+#else  				
 				/*等待气象模块读取到数据后，再一起转发出去*/  
 				for (i = 0; i < MeteorBufCounter; i++)
 				{
@@ -140,6 +176,7 @@ int main(void)
 				/*发送飞机状态*/
 				printf("$WRJSJ,Battery:%f,ReturnFlag:%d\r\n", (double)BatteryAllowance/1000, ReturnFlag);
 				printf("\r\n");
+#endif				
 			}
 			else
 			{
