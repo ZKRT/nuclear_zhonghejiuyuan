@@ -23,6 +23,8 @@
 #include "osusart.h"
 #include "datalink_osdk_handle.h"
 
+#define SOFTWARE_VERSION  "RELEASE-V02"
+
 FIL fileTXT;
 FIL *fp;
 BYTE buffer[] = "hello world!"; //	写入数据
@@ -84,7 +86,7 @@ int main(void)
 
 	delay_ms(1000);
 
-	ReadyFlag = 1; //zkrt_debug 需设置为0
+	ReadyFlag = 0; //zkrt_debug 需设置为0
 
 	while (1)
 	{
